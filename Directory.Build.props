@@ -1,0 +1,49 @@
+<Project>
+  <PropertyGroup>
+    <!-- net8.0 floor so the net8.0 services (AMLService — the largest consumer at
+         13 hosted services) can consume it; net10.0 services (Kefi, Tenant,
+         Payment, Notification) reference a net8.0 package with no issue. -->
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+
+    <!-- Package metadata -->
+    <Authors>DLoizides</Authors>
+    <Company>OnlineMenu</Company>
+    <PackageProjectUrl>https://github.com/openmindednewby/Dloizides.BackgroundWork</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/openmindednewby/Dloizides.BackgroundWork</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageTags>background;hostedservice;leader-election;advisory-lock;postgres;singleton;worker;high-availability</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Description>Run singleton background work safely alongside a horizontally-scaled HTTP tier. Splits a service into Api and Worker roles from ONE image, and guards each sweep with a Postgres advisory lock so only one instance ever executes it - regardless of replica count or a rolling update running two pods at once. Fails closed: a worker that cannot prove it holds the lease does not run.</Description>
+
+    <!-- Versioning -->
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+
+    <!-- NuGet settings -->
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+
+    <!-- Documentation -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+</Project>
