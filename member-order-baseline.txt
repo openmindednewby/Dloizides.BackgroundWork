@@ -1,0 +1,3 @@
+src/Dloizides.BackgroundWork/Hosting/LeaderElectedHostedService.cs 3
+src/Dloizides.BackgroundWork/Leasing/PostgresAdvisoryLease.cs 1
+tests/Dloizides.BackgroundWork.Tests/LeaderElectedHostedServiceTests.cs 2
